@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mine ønskelister - WishHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header(isLoggedIn=${isLoggedIn})"></div>
+
+<main>
+    <h1>Mine ønskelister</h1>
+
+    <div th:if="${wishlists.size() == 0}">
+        <p>Opret din første ønskeliste!</p>
+        <a th:href="@{/wishlists/create}" class="create-button">+</a>
+    </div>
+
+    <div th:if="${wishlists.size() > 0}">
+        <ul>
+            <li th:each="list : ${wishlists}">
+                <span th:text="${list.title}"></span>
+                <a th:href="@{/wishlists/{id}/delete(id=${list.id})}">Slet</a>
+                <a th:href="@{/wishlists/{id}/share(id=${list.id})}">Del</a>
+            </li>
+        </ul>
+        <a th:href="@{/wishlists/create}" class="create-button">+ Opret ny ønskeliste</a>
+    </div>
+</main>
+</body>
+</html>

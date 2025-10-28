@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - WishHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- Header -->
+<div th:replace="fragments/header :: header(isLoggedIn=${isLoggedIn})"></div>
+
+<main class="login-container">
+    <h1>Log ind</h1>
+
+    <form th:action="@{/login}" method="post" class="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Din email" required>
+
+        <label for="password">Adgangskode:</label>
+        <input type="password" id="password" name="password" placeholder="••••••" required>
+
+        <button type="submit">Log ind</button>
+    </form>
+
+    <!-- Fejlbesked -->
+    <p th:if="${error}" th:text="${error}" class="error-message"></p>
+
+    <p class="register-link">
+        Har du ikke en konto?
+        <a th:href="@{/registrer}">Opret bruger</a>
+    </p>
+</main>
+
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>
+

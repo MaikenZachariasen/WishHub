@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WishHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header(isLoggedIn=${isLoggedIn})"></div>
+
+<main>
+    <h1>Velkommen til WishHub!</h1>
+    <p>
+        <a th:href="@{/login}">Log ind</a> eller
+        <a th:href="@{/registrer}">opret en bruger</a> for at komme i gang.
+    </p>
+</main>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
+
