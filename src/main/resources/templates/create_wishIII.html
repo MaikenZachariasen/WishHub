@@ -18,13 +18,16 @@
     <label for="description">Beskrivelse:</label>
     <textarea id="description" name="description" required></textarea>
 
-    <label for="link">Produktlink (valgfrit):</label>
-    <input type="url" id="link" name="link" placeholder="https://...">
 
+
+
+    <!-- WUT!? What data field is this all of a sudden? -->
+    <!--
     <label for="quantity">Antal:</label>
     <select id="quantity" name="quantity">
       <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}"></option>
     </select>
+    -->
 
     <button type="submit">Gem ønske</button>
   </form>

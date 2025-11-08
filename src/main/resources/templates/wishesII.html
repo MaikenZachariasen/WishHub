@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header(isLoggedIn=${isLoggedIn})"></div>
+<h1> You wishes in this list</h1>
+
+    <table>
+
+        <tr>
+            <th>Wish</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Edit Wish</th>
+            <th>Delete Wish</th>
+        </tr>
+
+        <tr th:each = "wish : ${wishes}">
+            <td th:text="${wish.wishName}">Wish Name</td>
+            <td th:text="${wish.description}">Description</td>
+            <td>
+                <img th:if="${wish.imgDataPath != null}" th:src="@{${wish.imgDataPath}}" alt="Wish image" width="120">
+            </td>
+
+            <!-- Below are buttons for deleting and editing a wish-->
+            <td>
+                <a th:href="@{/wishlists/{listId}/wishes/edit/{wishId}(listId=${wish.listID}, wishId=${wish.wishID})}">
+                    Edit
+                </a>
+            </td>
+            <td>
+                <form th:action="@{/wishlists/{listId}/wishes/delete/{wishId}(listId=${wish.listID}, wishId=${wish.wishID})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+    </table>
+
+<!-- button for creating a new wish-->
+<button type="button" th:onclick="'location.href=\'' + @{/wishlists/{listId}/wishes/create(listId=${listId})} + '\''">
+    Create new wish!
+</button>
+
+</body>
+
+</html>

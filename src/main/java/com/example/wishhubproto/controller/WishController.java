@@ -2,6 +2,8 @@ package com.example.wishhubproto.controller;
 
 import com.example.wishhubproto.model.Lists;
 import com.example.wishhubproto.model.User;
+import com.example.wishhubproto.model.Wish;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.wishhubproto.service.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //GENERAL NOTES:
@@ -16,6 +19,12 @@ import java.util.List;
 //The use of just private boolean isLoggedIn = false;, will create errors, as Spring controller class is a SINGLETON, which
 //means that only one instance is used for all users? When a user logs in, all users get logged in.
 //SpringSecurity and HttpSession class can be used here.
+
+//Meaning of annotations:
+//@GetMapping is an anootation that tells Spring, that when a client sends a GET request to the URL that it is connected to,
+//the annotated method should be invoked. It is an annotation used for mapping HTTP GET requests to the speicif 'handler methods'.
+
+//@RequestMapping
 
 
 @Controller
@@ -58,7 +67,7 @@ public class WishController {
         User authenticatedUser = service.authenticateUser(user);
 
         if (authenticatedUser != null) {
-            isLoggedIn = true; //
+            isLoggedIn = true;
             model.addAttribute("isLoggedIn", true);
             model.addAttribute("userLists", service.getAllListsByUser(authenticatedUser.getUserID()));
             return "index"; // show home page with wishlists
@@ -92,6 +101,49 @@ public class WishController {
             return "registrate";
         }
     }
+
+    @GetMapping("/createwish-in{listID}")
+    public String createWish(Model model) {
+        Wish wish = new Wish();
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        model.addAttribute("wish", wish);
+        return "create_wish";
+    }
+
+    @PostMapping("/wishlists/{listId}/wishes/create")
+    public String createNewWish(@PathVariable("listId") int listId, @ModelAttribute Wish wish, Model model) {
+
+        service.createWishForList(wish, listId);
+
+        return "redirect:/wishlists/" + listId;
+
+    }
+
+    //@GetMapping("/")
+
+
+
+
+
+    //OBS SKAL DET VÆRE MED HTTPSESSION?
+    @GetMapping("/wishlists/{listID}/wishes")
+    public String retrieveWishes(@PathVariable int listID, HttpSession session, Model model) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        int userID = loggedInUser.getUserID();
+
+        List<Wish> wishList = service.getWishesByListAndUser(listID, userID);
+        model.addAttribute("wishList", wishList);
+
+        return "wishes";
+    }
+
+
+
+
+
+
+
+
 
 
     @GetMapping("/logout")

@@ -30,11 +30,11 @@ public class Wish{
         return wishID;
     }
 
-    public String getTitle() {
+    public String getWishName() {
         return wishName;
     }
 
-    public String getDescription() {
+    public String getWishDescription() {
         return description;
     }
 

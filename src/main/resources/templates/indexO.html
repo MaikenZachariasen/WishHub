@@ -14,10 +14,10 @@
 
     <!-- Buttons shown depending on login state -->
     <div class="button-group">
-        <button th:if="${!isLoggedIn}" th:onclick="'window.location.href=\'/login\''">Log ind</button>
-        <button th:if="${!isLoggedIn}" th:onclick="'window.location.href=\'/registrer\''">Opret bruger</button>
-        <button th:if="${isLoggedIn}" th:onclick="'window.location.href=\'/wishlists\''">Gå til ønskelister</button>
-        <button th:if="${isLoggedIn}" th:onclick="'window.location.href=\'/logout\''">Log ud</button>
+        <button th:if="${!isLoggedIn}" th:onclick="'window.location.href=\'/login\''"> Log ind </button>
+        <button th:if="${!isLoggedIn}" th:onclick="'window.location.href=\'/registrer\''"> Opret bruger </button>
+        <button th:if="${isLoggedIn}" th:onclick="'window.location.href=\'/wishlists\''"> Gå til ønskelister </button>
+        <button th:if="${isLoggedIn}" th:onclick="'window.location.href=\'/logout\''"> Log ud </button>
     </div>
 
     <!-- Show login form if not logged in -->

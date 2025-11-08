@@ -252,4 +252,29 @@ public class Repository {
         }
     }
 
+    //Method 9 _____________________________________________________________________________________________________
+    public Wish createWishForList(Wish wish, int listId) {
+        // Step 1: Insert the wish itself
+        String sql = "INSERT INTO Wishes (Title, Description, ImgDataPath) VALUES (?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, wish.getWishName());
+            ps.setString(2, wish.getWishDescription());
+            ps.setString(3, wish.getImgDataPath());
+            return ps;
+        }, keyHolder);
+
+        int generatedWishId = keyHolder.getKey().intValue();
+
+        // Link the new wish to the list in ListsRelationship
+        String insertRelationshipSql = "INSERT INTO ListsRelationship (WishID, ListID) VALUES (?, ?)";
+        jdbcTemplate.update(insertRelationshipSql, generatedWishId, listId);
+
+        // Return the newly created wish (optional, for confirmation)
+        String selectSql = "SELECT WishID, Title AS WishName, Description, ImgDataPath FROM Wishes WHERE WishID = ?";
+        return jdbcTemplate.queryForObject(selectSql, wishRowMapper, generatedWishId);
+    }
+
 }

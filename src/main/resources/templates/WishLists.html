@@ -23,10 +23,12 @@
     <ul>
       <li th:each="list : ${wishlists}">
         <span th:text="${list.title}"></span>
+        <a th:href="@{/wishlists/{listID}/wishes"> Se Alle Ønsker I denne Liste</a>
         <a th:href="@{/wishlists/{id}/edit(id=${list.id})}">Rediger</a>
         <a th:href="@{/wishlists/{id}/delete(id=${list.id})}">Slet</a>
         <!-- Не существует в repo and controller -->
-        <a th:href="@{/wishlists/{id}/share(id=${list.id})}">Del</a>
+        <!--<a th:href="@{/wishlists/{id}/share(id=${list.id})}">Del</a> -->
+
         <!-- Не существует в repo and controller -->
         <a th:href="@{/wishlists/{id}(id=${list.id})}">Se detaljer</a>
       </li>

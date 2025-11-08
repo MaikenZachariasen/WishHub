@@ -51,10 +51,14 @@ public class Service {
 
     //Method 7 in repo -
     public List<Lists> getAllListsByUser(int userID) {
-        return getAllListsByUser(userID);
+        return repository.getAllListsByUser(userID);
     }
     //Method 8  in repo -
     public User authenticateUser(User user) {
-        return authenticateUser(user);
+        return repository.authenticateUser(user);
+    }
+    //Method 9 in repo -
+    public Wish createWishForList(Wish wish, int listId) {
+        return repository.createWishForList(wish, listId);
     }
 }
